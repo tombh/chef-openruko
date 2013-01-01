@@ -1,8 +1,8 @@
 package "expect"
 
-git "/home/vagrant/openruko/keepgreen" do
-  user "vagrant"
-  group "vagrant"
-  repository "https://github.com/openruko/integration-tests.git"
+git "/home/rukosan/openruko/keepgreen" do
+  user "rukosan"
+  group "rukosan"
+  repository "git://github.com/tombh/integration-tests.git"
   action :checkout
 end

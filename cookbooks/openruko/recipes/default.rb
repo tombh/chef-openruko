@@ -7,9 +7,9 @@ package "uuid-dev"
 package "libssl0.9.8"
 package "lxc"
 
-directory "/home/vagrant/openruko" do
-  owner "vagrant"
-  group "vagrant"
+directory "/home/rukosan/openruko" do
+  owner "rukosan"
+  group "rukosan"
   mode 0755
 end
 

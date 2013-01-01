@@ -1,17 +1,18 @@
-git "/home/vagrant/openruko/dynohost" do
-  user "vagrant"
-  group "vagrant"
+git "/home/rukosan/openruko/dynohost" do
+  user "rukosan"
+  group "rukosan"
   repository "https://github.com/openruko/dynohost.git"
   action :checkout
 end
 
 bash "setup-dynohost" do
-  user  "vagrant"
-  cwd   "/home/vagrant/openruko/dynohost"
-  environment Hash['HOME' => '/home/vagrant']
+  user  "rukosan"
+  cwd   "/home/rukosan/openruko/dynohost"
+  environment Hash['HOME' => '/home/rukosan']
 
   code <<-EOF
   set -e
+  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n' | make certs
   EOF
