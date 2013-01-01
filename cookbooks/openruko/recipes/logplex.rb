@@ -1,16 +1,17 @@
-git "/home/vagrant/openruko/logplex" do
-  user "vagrant"
-  group "vagrant"
+git "/home/rukosan/openruko/logplex" do
+  user "rukosan"
+  group "rukosan"
   repository "https://github.com/openruko/logplex.git"
   action :checkout
 end
 
 bash "setup-logplex" do
-  user  "vagrant"
-  cwd   "/home/vagrant/openruko/logplex"
-  environment Hash['HOME' => '/home/vagrant']
+  user  "rukosan"
+  cwd   "/home/rukosan/openruko/logplex"
+  environment Hash['HOME' => '/home/rukosan']
 
   code <<-EOF
+  source /usr/local/bin/nvm/nvm.sh
   make init
   EOF
 end

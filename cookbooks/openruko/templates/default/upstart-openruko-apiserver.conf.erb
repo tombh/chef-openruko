@@ -2,9 +2,9 @@ start on starting openruko
 stop on stopping openruko
 respawn
 
-exec su - vagrant -c 'cd /home/vagrant/openruko/apiserver; \
-export PG_USER="vagrant"; \
-export PG_PASSWORD="vagrant"; \
+exec su - rukosan -c 'cd /home/rukosan/openruko/apiserver; \
+export PG_USER="rukosan"; \
+export PG_PASSWORD="rukosan"; \
 export S3_HOSTNAME="<%= node['s3']['s3_hostname'] %>";  \
 export S3_PORT="<%= node['s3']['s3_port'] %>";  \
 export S3_KEY="<%= node['s3']['s3_key'] %>";  \

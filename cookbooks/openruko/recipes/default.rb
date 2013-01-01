@@ -10,9 +10,9 @@ package "python-dev"
 package "python-virtualenv"
 package "lxc"
 
-directory "/home/vagrant/openruko" do
-  owner "vagrant"
-  group "vagrant"
+directory "/home/rukosan/openruko" do
+  owner "rukosan"
+  group "rukosan"
   mode 0755
 end
 

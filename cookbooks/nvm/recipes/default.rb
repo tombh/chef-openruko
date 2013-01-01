@@ -16,6 +16,18 @@ script "install-nvm" do
   not_if "test -d /usr/local/bin/nvm"
 end
 
+script "ensure-rukosan-has-nvm" do
+  interpreter "bash"
+  user  "rukosan"
+
+  code <<-EOF
+    echo -e '\n\nsource /usr/local/bin/nvm/nvm.sh' >> /home/rukosan/.bashrc
+    source /usr/local/bin/nvm/nvm.sh
+  EOF
+
+  not_if "grep nvm.sh /home/rukosan/.bashrc"
+end
+
 template "/etc/profile.d/nvm.sh" do
   source "nvm.erb"
   owner "root"

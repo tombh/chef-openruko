@@ -2,7 +2,7 @@ pre-start script
 
 bash << "EOF"
   touch /var/log/fakes3.log
-  chown vagrant. /var/log/fakes3.log
+  chown rukosan. /var/log/fakes3.log
 EOF
 
 end script
@@ -17,4 +17,4 @@ stop on (stopping network-interface
 		 
 respawn
 
-exec su - vagrant -c 'fakes3 -r /tmp/fakes3_root -p 4567 >> /var/log/fakes3.log 2>&1'
+exec su - rukosan -c 'fakes3 -r /tmp/fakes3_root -p 4567 >> /var/log/fakes3.log 2>&1'

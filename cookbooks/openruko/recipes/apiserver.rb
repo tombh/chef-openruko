@@ -1,17 +1,18 @@
-git "/home/vagrant/openruko/apiserver" do
-  user "vagrant"
-  group "vagrant"
+git "/home/rukosan/openruko/apiserver" do
+  user "rukosan"
+  group "rukosan"
   repository "https://github.com/openruko/apiserver.git"
   action :checkout
 end
 
 bash "setup-apiserver" do
-  user  "vagrant"
-  cwd   "/home/vagrant/openruko/apiserver"
-  environment Hash['HOME' => '/home/vagrant']
+  user  "rukosan"
+  cwd   "/home/rukosan/openruko/apiserver"
+  environment Hash['HOME' => '/home/rukosan']
 
   code <<-EOF
   set -e
+  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n\n\n' | make certs
   echo -e '\ny' | ssh-keygen -t rsa -N ''
@@ -20,17 +21,17 @@ end
 
 bash "setup-postgres" do
   code <<-EOF
-  sudo -u postgres psql <<< "CREATE ROLE vagrant PASSWORD 'md5ce5f2d27bc6276a03b0328878c1dc0e2' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;"
+  sudo -u postgres psql <<< "CREATE ROLE rukosan PASSWORD 'md5d59d27ea95747738c8b9e5cfd0882e60' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;"
   EOF
 end
 
 bash "setup" do
-  user "vagrant"
-  cwd "/home/vagrant/openruko/apiserver/postgres"
-  environment Hash['HOME' => '/home/vagrant']
+  user "rukosan"
+  cwd "/home/rukosan/openruko/apiserver/postgres"
+  environment Hash['HOME' => '/home/rukosan']
 
   code <<-EOF
-  echo -e "openruko\nvagrant\nopenruko@openruko.com\nvagrant" | ./setup
+  echo -e "openruko\nrukosan\nopenruko@openruko.com\nrukosan" | ./setup
   EOF
 end
 
