@@ -1,7 +1,7 @@
 git "/home/rukosan/openruko/dynohost" do
   user "rukosan"
   group "rukosan"
-  repository "https://github.com/slotbox/dynohost.git"
+  repository "https://github.com/openruko/dynohost.git"
   action :checkout
   revision node["versions"]["dynohost"]
 end
@@ -13,6 +13,7 @@ bash "setup-dynohost" do
 
   code <<-EOF
   set -e
+  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n' | make certs
   EOF

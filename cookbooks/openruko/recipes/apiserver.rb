@@ -1,7 +1,8 @@
 git "/home/rukosan/openruko/apiserver" do
   user "rukosan"
   group "rukosan"
-  repository "https://github.com/slotbox/apiserver.git"
+
+  repository "https://github.com/openruko/apiserver.git"
   action :checkout
   revision node["versions"]["apiserver"]
 end
@@ -13,6 +14,7 @@ bash "setup-apiserver" do
 
   code <<-EOF
   set -e
+  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n\n\n' | make certs
   echo -e '\ny' | ssh-keygen -t rsa -N ''

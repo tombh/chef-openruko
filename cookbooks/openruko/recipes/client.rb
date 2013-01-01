@@ -1,9 +1,13 @@
-script "install-slotbox-cli" do
-  interpreter "bash"
+git "/home/rukosan/openruko/client" do
+  user "rukosan"
+  group "rukosan"
+  repository "https://github.com/openruko/client.git"
+  action :checkout
+end
 
-  code <<-EOF
-    GEM_HOME=/home/rukosan/.gem/ruby/1.9.1 gem install slotbox --no-rdoc --no-ri --version #{node["versions"]["slotbox-cli"]}
-  EOF
-
-  not_if "gem which slotbox"
+template "/home/rukosan/.ssh/config" do
+  source "ssh-config.erb"
+  owner "root"
+  group "root"
+  mode 0644
 end

@@ -2,9 +2,9 @@ start on starting openruko
 stop on stopping openruko
 respawn
 
-exec sudo su - -c 'cd /home/rukosan/openruko/httprouting; \
+export HTTPROUTING_PORT=80; \
+exec su - rukosan -c 'cd /home/rukosan/openruko/httprouting; \
 export PG_USER="rukosan"; \
 export PG_PASSWORD="rukosan"; \
-export HTTPROUTING_PORT=80; \
 export HTTPROUTING_TLS=true; \
 httprouting/bin/httprouting >> /var/log/openruko/httprouting.log 2>&1'

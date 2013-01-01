@@ -12,6 +12,7 @@ bash "setup-rukorun" do
   environment Hash['HOME' => '/home/rukosan']
 
   code <<-EOF
+  source /usr/local/bin/nvm/nvm.sh
   make init
   EOF
 end

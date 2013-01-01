@@ -10,11 +10,11 @@ package "lxc"
 bash "setup-slotbox.local-domain" do
   user  "root"
   code <<-EOF
-  echo "127.0.0.1 slotbox.local" >> /etc/hosts
-  echo "127.0.0.1 slotbox-nodejs-hello-world.slotbox.local" >> /etc/hosts
+  echo "127.0.0.1 openruko.local" >> /etc/hosts
+  echo "127.0.0.1 hello-world.local" >> /etc/hosts
   EOF
 
-  not_if "grep 'slotbox\.local' /etc/hosts"
+  not_if "grep 'openruko\.local' /etc/hosts"
 end
 
 directory "/home/rukosan/openruko" do
@@ -43,6 +43,7 @@ include_recipe "openruko::dynohost"
 include_recipe "openruko::logplex"
 include_recipe "openruko::rukorun"
 include_recipe "openruko::codonhooks"
+include_recipe "openruko::gitmouth"
 include_recipe "openruko::client"
 include_recipe "openruko::integration-tests"
 
