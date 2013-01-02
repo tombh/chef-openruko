@@ -1,10 +1,10 @@
 # Bootstrapping OpenRuko
 
-Chef recipes for bootstrapping [OpenRuko](https://github.com/openruko). [![Build Status](https://travis-ci.org/slotbox/chef-slotbox.png?branch=master)](undefined)
+Chef recipes for bootstrapping [OpenRuko](https://github.com/openruko).
 
 Both a Vagrantfile for running local development environments and a generic deploy script for generic VPSs
 
-## Vagrat Install
+## Vagrant Install
 
 To generate a new VirtualBox VM with OpenRuko and all its dependencies already installed.
 
@@ -21,7 +21,7 @@ $ vagrant up
 This has been tested on vanilla installs of Ubuntu 12.04 64bit. So fire up a remote instance then on your local machine;
 
 ```
-$ git clone https://github.com/tombh/chef-openruko.git
+$ git clone https://github.com/openruko/chef-openruko.git
 $ cd chef-openruko
 $ ./deploy.sh root@<host>
 # wait ...
@@ -34,8 +34,12 @@ The first usage of `Chef OpenRuko` was for testing openruko on a clean VM.
 To launch the tests login to the server (`vagrant ssh` if your using Vagrant) and run:
 
 ```
+<<<<<<< HEAD
 [root/vagrant] $ sudo su - rukosan
-[rukosan] $ cd /home/rukosan/openruko/keepgreen
+=======
+[root/vagrant] $ sudo su rukosan
+>>>>>>> Updated README
+[rukosan] $ cd /home/rukosan/openruko/integration-tests
 [rukosan] $ ./run.sh
 ```
 
