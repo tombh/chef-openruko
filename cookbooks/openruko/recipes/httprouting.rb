@@ -12,7 +12,6 @@ bash "setup-httprouting" do
 
   code <<-EOF
   set -e
-  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n\n\n' | make certs
   EOF

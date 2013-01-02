@@ -13,7 +13,6 @@ bash "setup-gitmouth" do
   code <<-EOF
   set -e
   if [ ! -f ./bin/activate ]; then
-  source /usr/local/bin/nvm/nvm.sh
 	make init
   fi
   rm -fr certs
