@@ -5,7 +5,7 @@
       "recipe[fakes3]",
       "recipe[git]",
       "recipe[heroku-toolbelt]",
-      "recipe[nvm]",
+      "recipe[nodejs::install_from_package]",
       "recipe[openruko]",
       "recipe[openssl]",
       "recipe[postgresql]"

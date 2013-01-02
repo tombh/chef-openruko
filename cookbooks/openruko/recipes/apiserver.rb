@@ -14,7 +14,6 @@ bash "setup-apiserver" do
 
   code <<-EOF
   set -e
-  source /usr/local/bin/nvm/nvm.sh
   make init
   echo -e '\n\n\n\n\n\n\n\n' | make certs
   echo -e '\ny' | ssh-keygen -t rsa -N ''
