@@ -34,7 +34,7 @@ The first usage of `Chef OpenRuko` was for testing openruko on a clean VM.
 To launch the tests login to the server (`vagrant ssh` if your using Vagrant) and run:
 
 ```
-[root/vagrant] $ sudo su rukosan
+[root/vagrant] $ sudo su - rukosan
 [rukosan] $ cd /home/rukosan/openruko/keepgreen
 [rukosan] $ ./run.sh
 ```
