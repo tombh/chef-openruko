@@ -1,0 +1,36 @@
+{
+    "run_list": [
+      "recipe[apt]",
+      "recipe[build-essential]",
+      "recipe[openssl]",
+      "recipe[postgresql::client]",
+      "recipe[postgresql::server]",
+      "recipe[git]",
+      "recipe[nodejs::install_from_package]",
+      "recipe[fakes3]",
+      //"recipe[proxy]"
+      "recipe[openruko]",
+      "recipe[heroku-toolbelt]"
+    ],
+
+    "apiserver_key": "ec1a8eb9-18a6-42c2-81ec-c0f0f615280c",
+    "s3": {
+      "s3_key": "123",
+      "s3_secret": "123",
+      "s3_bucket": "openruko",
+      "s3_hostname": "mymachine.me",
+      "s3_port": "4567"
+    },
+
+    "postgresql": {
+      "version": "9.1",
+      "listen_addresses": "*",
+      "hba": [
+        { "method": "trust", "address": "0.0.0.0/0" },
+        { "method": "trust", "address": "::1/0" }
+      ],
+      "password": {
+        "postgres": "password"
+      }
+    }
+}

@@ -8,4 +8,7 @@ Vagrant::Config.run do |config|
   # Allow access to the VM's IP from host
   config.vm.network :bridged
 
+  config.vm.share_folder "chef", "~/chef", "."
+  config.vm.provision :shell, :inline => "cd chef && source bootstrap.sh"
+
 end
