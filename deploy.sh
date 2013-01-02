@@ -21,7 +21,7 @@ rm -rf ~/chef &&
 mkdir ~/chef &&
 cd ~/chef &&
 tar x &&
-bash vps_deploy/install.sh'
+bash bootstrap.sh'
 
 echo "*****************"
 echo "DEPLOY OUTPUT END"
