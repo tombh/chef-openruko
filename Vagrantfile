@@ -8,6 +8,7 @@ Vagrant::Config.run do |config|
   # Allow access to the VM's IP from host
   config.vm.network :bridged
 
+  # Run chef manually to allow recipes to be used by Vagrant and remote VPSs over `ssh -c'
   config.vm.share_folder "chef", "~/chef", "."
   config.vm.provision :shell, :inline => "cd chef && source bootstrap.sh"
 
