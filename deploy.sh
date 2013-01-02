@@ -8,15 +8,10 @@ host="${1}"
 # we remove (-R) the old host key from known_hosts
 ssh-keygen -R "${host#*@}" 2> /dev/null
 
-
 tar c . | ssh -o 'StrictHostKeyChecking no' "$host" '
 echo "*******************"
 echo "DEPLOY OUTPUT START"
 echo "*******************"
-if [ "$(id -u)" != "0" ]; then
-  echo "You must be root to deploy."
-  exit 1
-fi
 rm -rf ~/chef &&
 mkdir ~/chef &&
 cd ~/chef &&
