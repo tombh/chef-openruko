@@ -1,29 +1,42 @@
-# Vagrant OpenRuko
+# Bootstrapping OpenRuko
 
-This is the easiest way to test [OpenRuko](https://github.com/openruko).
+Chef recipes for bootstrapping [OpenRuko](https://github.com/openruko).
 
-## Install
+Both a Vagrantfile for running local development environments and a generic deploy script for generic VPSs
 
-Vagrant OpenRuko will generate a new VirtualBox VM with OpenRuko and all its dependencies already installed.
+## Vagrat Install
+
+To generate a new VirtualBox VM with OpenRuko and all its dependencies already installed.
 
 ```
 $ sudo apt-get install vagrant
-$ git clone https://github.com/openruko/vagrant-openruko.git
-$ cd vagrant-openruko
+$ git clone https://github.com/openruko/chef-openruko.git
+$ cd chef-openruko
 $ vagrant up
+# wait ...
+```
+
+## VPS Install
+
+This has been tested on vanilla installs of Ubuntu 12.04 64bit. So fire up a remote instance then on your local machine;
+
+```
+$ git clone https://github.com/tombh/chef-openruko.git
+$ cd chef-openruko
+$ ./deploy.sh root@<host>
 # wait ...
 ```
 
 ## Launch tests
 
-The first usage of `Vagrant OpenRuko` was for testing openruko on a clean VM.
+The first usage of `Chef OpenRuko` was for testing openruko on a clean VM.
 
-To launch the test run:
+To launch the tests login to the server (`vagrant ssh` if your using Vagrant) and run:
 
 ```
-$ ssh vagtrant@localhost -p 2222
-[vagrant] $ cd ~/openruko/keepgreen
-[vagrant] $ ./run.sh
+[root/vagrant] $ sudo su rukosan
+[rukosan] $ cd /home/rukosan/openruko/keepgreen
+[rukosan] $ ./run.sh
 ```
 
 See also [integration-tests](https://github.com/openruko/integration-tests)
@@ -38,15 +51,14 @@ export HTTPS_PROXY=http://proxy.xxx:3128
 export NO_PROXY=localhost
 ```
 
-Connect to the Vagrant VM with SSH, and create a new project (we will use node.js)
+Connect to the server with SSH, and create a new project (we will use node.js)
 
 ```
-$ ssh vagtrant@localhost -p 2222
-[vagrant] $ mkdir myapp
-[vagrant] $ cd myapp
-[vagrant] $ git init
-[vagrant] $ npm init
-[vagrant] $ cat > index.js << EOF
+[rukosan] $ mkdir myapp
+[rukosan] $ cd myapp
+[rukosan] $ git init
+[rukosan] $ npm init
+[rukosan] $ cat > index.js << EOF
 var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -55,19 +67,19 @@ http.createServer(function (req, res) {
 console.log('Server running at http://127.0.0.1:1337/');
 EOF
 
-[vagrant] $ cat > Procfile << EOF
+[rukosan] $ cat > Procfile << EOF
 web: node index.js
 EOF
 
-[vagrant] $ git add -A
-[vagrant] $ git commit -m 'fisrt commit'
+[rukosan] $ git add -A
+[rukosan] $ git commit -m 'fisrt commit'
 
-[vagrant] $ ~/openruko/client/openruko create myapp
+[rukosan] $ ~/openruko/client/openruko create myapp
 # email: openruko@openruko.com
-# Password: vagrant
+# Password: rukosan
 
-[vagrant] $ git push heroku master
-[vagrant] $ curl 127.0.0.1:1337
+[rukosan] $ git push heroku master
+[rukosan] $ curl 127.0.0.1:1337
 ```
 
 
