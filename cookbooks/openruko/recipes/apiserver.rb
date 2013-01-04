@@ -1,7 +1,7 @@
 git "/home/rukosan/openruko/apiserver" do
   user "rukosan"
   group "rukosan"
-  repository "https://github.com/openruko/apiserver.git"
+  repository "https://github.com/slotbox/apiserver.git"
   action :checkout
 end
 
