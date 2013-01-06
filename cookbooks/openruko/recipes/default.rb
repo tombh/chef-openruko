@@ -30,7 +30,6 @@ template "/etc/init/openruko.conf" do
   mode 0644
 end
 
-include_recipe "openruko::gitmouth"
 include_recipe "openruko::apiserver"
 include_recipe "openruko::httprouting"
 include_recipe "openruko::dynohost"
