@@ -5,10 +5,6 @@ Vagrant::Config.run do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-#  For i686 prefer a 32bit VM
-#  config.vm.box = "openruko32"
-#  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-
   # Leave this as a separate part, it allows chef
   # to reload its env on the next part
   config.vm.provision :chef_solo do |chef|
