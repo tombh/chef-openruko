@@ -17,4 +17,4 @@ end
 # slotbox with;
 # config.vm.share_folder "slotbox", "/home/rukosan/slotbox_mount", "~/Software/slotbox"
 # Then symlink the various repos you're hacking on to see changes straight away on the live box.
-require "Vagrantfile.local" if File.exists? "Vagrantfile.local"
+load "./Vagrantfile.local" if File.exists? "Vagrantfile.local"
