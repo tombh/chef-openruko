@@ -1,0 +1,3 @@
+language: bash
+before_script: source bootstrap.sh
+script: /home/rukosan/openruko/integration-tests/run.sh

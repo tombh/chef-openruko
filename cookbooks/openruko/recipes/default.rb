@@ -10,6 +10,15 @@ package "python-dev"
 package "python-virtualenv"
 package "lxc"
 
+bash "setup-slotbox.local-domain" do
+  user  "root"
+  code <<-EOF
+  echo "127.0.0.1 slotbox.local" >> /etc/hosts
+  EOF
+
+  not_if "grep 'slotbox\.local' /etc/hosts"
+end
+
 directory "/home/rukosan/openruko" do
   owner "rukosan"
   group "rukosan"
@@ -37,7 +46,7 @@ include_recipe "openruko::logplex"
 include_recipe "openruko::rukorun"
 include_recipe "openruko::codonhooks"
 include_recipe "openruko::client"
-include_recipe "openruko::keepgreen"
+include_recipe "openruko::integration-tests"
 
 service "openruko" do
   provider Chef::Provider::Service::Upstart

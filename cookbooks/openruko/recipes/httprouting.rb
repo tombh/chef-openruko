@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/httprouting" do
   group "rukosan"
   repository "https://github.com/Filirom1/httprouting.git"
   action :checkout
+  revision node["versions"]["httprouting"]
 end
 
 bash "setup-httprouting" do

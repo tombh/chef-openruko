@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/dynohost" do
   group "rukosan"
   repository "https://github.com/openruko/dynohost.git"
   action :checkout
+  revision node["versions"]["dynohost"]
 end
 
 bash "setup-dynohost" do

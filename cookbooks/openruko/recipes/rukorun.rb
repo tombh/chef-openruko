@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/rukorun" do
   group "rukosan"
   repository "https://github.com/openruko/rukorun.git"
   action :checkout
+  revision node["versions"]["rukorun"]
 end
 
 bash "setup-rukorun" do

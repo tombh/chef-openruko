@@ -3,4 +3,5 @@ git "/home/rukosan/openruko/codonhooks" do
   group "rukosan"
   repository "https://github.com/slotbox/codonhooks.git"
   action :checkout
+  revision node["versions"]["codonhooks"]
 end

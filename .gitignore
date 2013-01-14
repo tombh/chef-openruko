@@ -1,2 +1,4 @@
 .vagrant.d
 .vagrant
+chef-stacktrace.out
+Vagrantfile.local
