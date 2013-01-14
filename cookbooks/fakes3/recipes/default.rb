@@ -8,7 +8,7 @@ script "install-fakes3" do
     gem install fakes3 --no-rdoc --no-ri
   EOF
 
-  not_if "test -d /usr/local/bin/fakes3"
+  not_if "fakes3"
 end
 
 template "/etc/init/fakes3.conf" do
