@@ -15,7 +15,7 @@
 
     "versions" : {
       "apiserver": "10acbf6",
-      "slotbox-cli": "0.0.2",
+      "slotbox-cli": "0.0.3",
       "codonhooks": "085743c",
       "dynohost": "a87e495",
       "httprouting": "16e5c40",
