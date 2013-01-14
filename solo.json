@@ -14,14 +14,14 @@
     ],
 
     "versions" : {
-      "apiserver": "10acbf6",
+      "apiserver": "10acbf69a3540475bee9714796550c987bea8f5f",
       "slotbox-cli": "0.0.3",
-      "codonhooks": "085743c",
-      "dynohost": "a87e495",
-      "httprouting": "16e5c40",
-      "integration-tests": "d58f3d5",
-      "logplex": "6ed56c",
-      "rukorun": "b74ad1"
+      "codonhooks": "085743c7559ef1a779f1e3e77368448794d48c20",
+      "dynohost": "a87e495fe7fc1fa88214e6b1718bfa11db6b64e1",
+      "httprouting": "16e5c4011938f3964ed3bcaadca30fb58851f3a1",
+      "integration-tests": "aba16b1da37efe2f0c5d93a91b50983002c0a80e",
+      "logplex": "6ed56cfae6eb8fdd822f2bd14c8663c5b9287e9a",
+      "rukorun": "b74ad1a33eb0b82025aae5bde3c8bd3330664944"
     },
 
     "apiserver_key": "ec1a8eb9-18a6-42c2-81ec-c0f0f615280c",
