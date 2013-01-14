@@ -1,7 +1,7 @@
 git "/home/rukosan/openruko/httprouting" do
   user "rukosan"
   group "rukosan"
-  repository "https://github.com/Filirom1/httprouting.git"
+  repository "https://github.com/slotbox/httprouting.git"
   action :checkout
   revision node["versions"]["httprouting"]
 end

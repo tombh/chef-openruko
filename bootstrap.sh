@@ -57,7 +57,8 @@ else
 	echo "Travis CI environment detected."
 
 	# Remove exsiting Postgres installation
-	sudo apt-get --force-yes -fuy remove postgresql-9.1
+	sudo /etc/init.d/postgresql stop
+	sudo apt-get --force-yes -fuy remove --purge postgresql-9.1
 
 	gem install --no-rdoc --no-ri chef --version $chef_version
 	add_rukosan_user
