@@ -51,6 +51,16 @@ when "debian"
   include_recipe "postgresql::server_debian"
 end
 
+# Make sure /etc/postgresql/9.1/main exists.
+# For some reason Travis CI doesn't create it.
+bash "postgres-dir" do
+  user  "root"
+  code <<-EOF
+  mkdir -p #{node['postgresql']['dir']}
+  EOF
+end
+
+
 template "#{node['postgresql']['dir']}/postgresql.conf" do
   source "postgresql.conf.erb"
   owner "postgres"
