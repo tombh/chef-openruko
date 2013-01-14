@@ -13,6 +13,17 @@
       "recipe[heroku-toolbelt]"
     ],
 
+    "versions" : {
+      "apiserver": "10acbf6",
+      "slotbox-cli": "0.0.2",
+      "codonhooks": "085743c",
+      "dynohost": "a87e495",
+      "httprouting": "16e5c40",
+      "integration-tests": "d58f3d5",
+      "logplex": "6ed56c",
+      "rukorun": "b74ad1"
+    },
+
     "apiserver_key": "ec1a8eb9-18a6-42c2-81ec-c0f0f615280c",
     "s3": {
       "s3_key": "123",

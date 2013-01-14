@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/logplex" do
   group "rukosan"
   repository "https://github.com/openruko/logplex.git"
   action :checkout
+  revision node["versions"]["logplex"]
 end
 
 bash "setup-logplex" do

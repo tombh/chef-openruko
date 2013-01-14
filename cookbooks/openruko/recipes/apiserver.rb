@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/apiserver" do
   group "rukosan"
   repository "https://github.com/slotbox/apiserver.git"
   action :checkout
+  revision node["versions"]["apiserver"]
 end
 
 bash "setup-apiserver" do
@@ -29,8 +30,14 @@ bash "setup" do
   cwd "/home/rukosan/openruko/apiserver/postgres"
   environment Hash['HOME' => '/home/rukosan']
 
+  # If there's a pre-existing install don't overwrite DB data on a live system, just update the API funcitons.
   code <<-EOF
-  echo -e "openruko\nrukosan\nopenruko@openruko.com\nrukosan" | ./setup
+  if [[ "$(psql openruko -nq -c "SELECT value FROM openruko_data.settings WHERE key = 'base_domain'")" == *slotbox* ]]; then
+    setup="./setup --functions-only"
+  else
+    setup="./setup"
+  fi
+  echo -e "openruko\nrukosan\nopenruko@openruko.com\nrukosan" | $setup
   EOF
 end
 
