@@ -60,13 +60,11 @@ bash "postgres-dir" do
   EOF
 end
 
-
 template "#{node['postgresql']['dir']}/postgresql.conf" do
   source "postgresql.conf.erb"
   owner "postgres"
   group "postgres"
   mode 0600
-  notifies :restart, 'service[postgresql]', :immediately
 end
 
 template "#{node['postgresql']['dir']}/pg_hba.conf" do
@@ -74,7 +72,7 @@ template "#{node['postgresql']['dir']}/pg_hba.conf" do
   owner "postgres"
   group "postgres"
   mode 00600
-  notifies :reload, 'service[postgresql]', :immediately
+  notifies :restart, 'service[postgresql]', :immediately
 end
 
 # Default PostgreSQL install has 'ident' checking on unix user 'postgres'
