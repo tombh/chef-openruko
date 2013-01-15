@@ -67,8 +67,8 @@ else
 
 
 	# Travis CI uses RVM
-	sudo echo "[[ -s \"\$HOME/.rvm/scripts/rvm\" ]] && source \"\$HOME/.rvm/scripts/rvm\"" >> /home/rukosan/.bashrc
-	sudo echo "PATH=\$PATH:\$HOME/.rvm/bin" >> /home/rukosan/.bashrc
+	echo "[[ -s \"\$HOME/.rvm/scripts/rvm\" ]] && source \"\$HOME/.rvm/scripts/rvm\"" | sudo tee -a /home/rukosan/.bashrc >/dev/null
+	echo "PATH=\$PATH:\$HOME/.rvm/bin" | sudo tee -a /home/rukosan/.bashrc >/dev/null
 	sudo rm -f /home/rukosan/.rvm
 	sudo rm -f /home/rukosan/.rvmrc
 	sudo ln -s /home/travis/.rvm /home/rukosan/.rvm
