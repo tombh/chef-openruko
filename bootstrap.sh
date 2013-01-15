@@ -60,7 +60,7 @@ else
 	sudo /etc/init.d/postgresql stop
 	sudo apt-get --force-yes -fuy remove --purge postgresql postgresql-9.1 postgresql-client
 
-	mkdir -p /var/log/postgresql
+	sudo mkdir -p /var/log/postgresql
 
 	gem install --no-rdoc --no-ri chef --version $chef_version
 	add_rukosan_user
