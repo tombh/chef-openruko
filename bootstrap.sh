@@ -65,15 +65,6 @@ else
 	gem install --no-rdoc --no-ri chef --version $chef_version
 	add_rukosan_user
 
-
-	# Travis CI uses RVM
-	echo "[[ -s \"\$HOME/.rvm/scripts/rvm\" ]] && source \"\$HOME/.rvm/scripts/rvm\"" | sudo tee -a /home/rukosan/.bashrc >/dev/null
-	echo "PATH=\$PATH:\$HOME/.rvm/bin" | sudo tee -a /home/rukosan/.bashrc >/dev/null
-	sudo rm -f /home/rukosan/.rvm
-	sudo rm -f /home/rukosan/.rvmrc
-	sudo ln -s /home/travis/.rvm /home/rukosan/.rvm
-	sudo ln -s /home/travis/.rvmrc /home/rukosan/.rvmrc
-
 	# rvmsudo is the only way to give chef the needed permissions
 	sudo_command=rvmsudo
 
