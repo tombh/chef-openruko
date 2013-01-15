@@ -2,13 +2,13 @@ package "rubygems"
 
 script "install-fakes3" do
   interpreter "bash"
-  user  "root"
+  user  "rukosan"
 
   code <<-EOF
     gem install fakes3 --no-rdoc --no-ri
   EOF
 
-  not_if "fakes3"
+  not_if "gem which fakes3"
 end
 
 template "/etc/init/fakes3.conf" do
