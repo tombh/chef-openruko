@@ -2,7 +2,7 @@ package "rubygems"
 
 script "install-fakes3" do
   interpreter "bash"
-  user  "rukosan"
+  user  "root"
 
   code <<-EOF
     gem install fakes3 --no-rdoc --no-ri
