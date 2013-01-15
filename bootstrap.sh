@@ -70,4 +70,4 @@ else
 
 fi
 
-$sudo_command chef-solo -c solo.rb -j solo.json && exit 0
+$sudo_command chef-solo -c solo.rb -j solo.json
