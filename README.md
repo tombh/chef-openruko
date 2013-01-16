@@ -1,6 +1,6 @@
 # Bootstrapping OpenRuko
 
-Chef recipes for bootstrapping [OpenRuko](https://github.com/openruko).
+Chef recipes for bootstrapping [OpenRuko](https://github.com/openruko). [![Build Status](https://travis-ci.org/slotbox/chef-slotbox.png?branch=master)](undefined)
 
 Both a Vagrantfile for running local development environments and a generic deploy script for generic VPSs
 
