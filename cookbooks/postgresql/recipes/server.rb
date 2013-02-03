@@ -15,7 +15,7 @@ package "postgresql-#{pg_version}"
 bash "postgres-dir" do
   user  "root"
   code <<-EOF
-  mkdir -p #{node['postgresql']['dir']}
+  mkdir -p /etc/postgresql/#{pg_version}/main
   EOF
 end
 
