@@ -10,6 +10,14 @@ pg_version = node["postgresql"]["version"]
 # install the package
 package "postgresql-#{pg_version}"
 
+# Make sure /etc/postgresql/9.1/main exists.
+# For some reason Travis CI doesn't create it.
+bash "postgres-dir" do
+  user  "root"
+  code <<-EOF
+  mkdir -p #{node['postgresql']['dir']}
+  EOF
+end
 
 # ensure data directory exists
 directory node["postgresql"]["data_directory"] do
