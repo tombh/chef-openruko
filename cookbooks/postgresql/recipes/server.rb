@@ -1,89 +1,118 @@
-#/postgresql.conf.
+#
 # Cookbook Name:: postgresql
 # Recipe:: server
 #
-# Author:: Joshua Timberman (<joshua@opscode.com>)
-# Author:: Lamont Granquist (<lamont@opscode.com>)
-# Copyright 2009-2011, Opscode, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
-::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+include_recipe "postgresql"
 
-include_recipe "postgresql::client"
+pg_version = node["postgresql"]["version"]
 
-# randomly generate postgres password, unless using solo - see README
-if Chef::Config[:solo]
-  missing_attrs = %w{
-    postgres
-  }.select do |attr|
-    node['postgresql']['password'][attr].nil?
-  end.map { |attr| "node['postgresql']['password']['#{attr}']" }
+# install the package
+package "postgresql-#{pg_version}"
 
-  if !missing_attrs.empty?
-    Chef::Application.fatal!([
-        "You must set #{missing_attrs.join(', ')} in chef-solo mode.",
-        "For more information, see https://github.com/opscode-cookbooks/postgresql#chef-solo-note"
-      ].join(' '))
-  end
-else
-  node.set_unless['postgresql']['password']['postgres'] = secure_password
-  node.save
+
+# ensure data directory exists
+directory node["postgresql"]["data_directory"] do
+  owner  "postgres"
+  group  "postgres"
+  mode   "0700"
+  not_if "test -f #{node["postgresql"]["data_directory"]}/PG_VERSION"
 end
 
-# Include the right "family" recipe for installing the server
-# since they do things slightly differently.
-case node['platform_family']
-when "rhel", "fedora", "suse"
-  include_recipe "postgresql::server_redhat"
-when "debian"
-  include_recipe "postgresql::server_debian"
+# initialize the data directory if necessary
+bash "postgresql initdb" do
+  user "postgres"
+  code <<-EOC
+  /usr/lib/postgresql/#{pg_version}/bin/initdb \
+    #{node["postgresql"]["initdb_options"]} \
+    -U postgres \
+    -D #{node["postgresql"]["data_directory"]}
+  EOC
+  creates "#{node["postgresql"]["data_directory"]}/PG_VERSION"
 end
 
-# Make sure /etc/postgresql/9.1/main exists.
-# For some reason Travis CI doesn't create it.
-bash "postgres-dir" do
-  user  "root"
-  code <<-EOF
-  mkdir -p #{node['postgresql']['dir']}
-  EOF
+# environment
+template "/etc/postgresql/#{pg_version}/main/environment" do
+  source "environment.erb"
+  owner  "postgres"
+  group  "postgres"
+  mode   "0644"
+  notifies :restart, "service[postgresql]"
 end
 
-template "#{node['postgresql']['dir']}/postgresql.conf" do
-  source "postgresql.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 0600
+# pg_ctl
+template "/etc/postgresql/#{pg_version}/main/pg_ctl.conf" do
+  source "pg_ctl.conf.erb"
+  owner  "postgres"
+  group  "postgres"
+  mode   "0644"
+  notifies :restart, "service[postgresql]"
 end
 
-template "#{node['postgresql']['dir']}/pg_hba.conf" do
+# pg_hba
+template node["postgresql"]["hba_file"] do
   source "pg_hba.conf.erb"
-  owner "postgres"
-  group "postgres"
-  mode 00600
-  notifies :restart, 'service[postgresql]', :immediately
+  owner  "postgres"
+  group  "postgres"
+  mode   "0640"
+  notifies :restart, "service[postgresql]"
 end
 
-# Default PostgreSQL install has 'ident' checking on unix user 'postgres'
-# and 'md5' password checking with connections from 'localhost'. This script
-# runs as user 'postgres', so we can execute the 'role' and 'database' resources
-# as 'root' later on, passing the below credentials in the PG client.
-bash "assign-postgres-password" do
-  user 'postgres'
-  code <<-EOH
-echo "ALTER ROLE postgres ENCRYPTED PASSWORD '#{node['postgresql']['password']['postgres']}';" | psql
-  EOH
-  not_if "echo '\connect' | PGPASSWORD=#{node['postgresql']['password']['postgres']} psql --username=postgres --no-password -h localhost"
-  action :run
+# pg_ident
+template node["postgresql"]["ident_file"] do
+  source "pg_ident.conf.erb"
+  owner  "postgres"
+  group  "postgres"
+  mode   "0640"
+  notifies :restart, "service[postgresql]"
+end
+
+# postgresql
+pg_template_source = node["postgresql"]["conf"].any? ? "custom" : "standard"
+template "/etc/postgresql/#{pg_version}/main/postgresql.conf" do
+  source "postgresql.conf.#{pg_template_source}.erb"
+  owner  "postgres"
+  group  "postgres"
+  mode   "0644"
+  variables(:configuration => node["postgresql"]["conf"])
+  notifies :restart, "service[postgresql]"
+end
+
+# start
+template "/etc/postgresql/#{pg_version}/main/start.conf" do
+  source "start.conf.erb"
+  owner  "postgres"
+  group  "postgres"
+  mode   "0644"
+  notifies :restart, "service[postgresql]", :immediately
+end
+
+# setup users
+node["postgresql"]["users"].each do |user|
+  pg_user user["username"] do
+    privileges :superuser => user["superuser"], :createdb => user["createdb"], :login => user["login"]
+    password user["password"]
+  end
+end
+
+# setup databases
+node["postgresql"]["databases"].each do |database|
+  pg_database database["name"] do
+    owner database["owner"]
+    encoding database["encoding"]
+    template database["template"]
+    locale database["locale"]
+  end
+
+  pg_database_extensions database["name"] do
+    extensions database["extensions"]
+    languages database["languages"]
+    postgis database["postgis"]
+  end
+end
+
+# define the service
+service "postgresql" do
+  supports :restart => true
+  action [:enable, :start]
 end

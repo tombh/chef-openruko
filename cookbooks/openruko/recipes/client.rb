@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/client" do
   group "rukosan"
   repository "https://github.com/openruko/client.git"
   action :checkout
+  revision node["versions"]["client"]
 end
 
 template "/home/rukosan/.ssh/config" do

@@ -33,7 +33,7 @@ bash "setup" do
 
   # If there's a pre-existing install don't overwrite DB data on a live system, just update the API funcitons.
   code <<-EOF
-  if [[ "$(psql openruko -nq -c "SELECT value FROM openruko_data.settings WHERE key = 'base_domain'")" == *slotbox* ]]; then
+  if [[ "$(psql openruko -nq -c "SELECT value FROM openruko_data.settings WHERE key = 'base_domain'")" == *openruko* ]]; then
     setup="./setup --functions-only"
   else
     setup="./setup"

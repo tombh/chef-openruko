@@ -3,6 +3,7 @@ git "/home/rukosan/openruko/gitmouth" do
   group "rukosan"
   repository "https://github.com/openruko/gitmouth.git"
   action :checkout
+  revision node["versions"]["gitmouth"]
 end
 
 bash "setup-gitmouth" do
