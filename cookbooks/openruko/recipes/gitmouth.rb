@@ -16,8 +16,16 @@ bash "setup-gitmouth" do
   if [ ! -f ./bin/activate ]; then
 	make init
   fi
+  EOF
+end
+
+bash "setup-gitmouth-certs" do
+  user  "rukosan"
+  cwd   "/home/rukosan/openruko/gitmouth"
+
+  code <<-EOF
   rm -fr certs
-  echo '' | make certs
+  expect <<- EOH\nspawn make certs \nexpect "*passphrase*"\nsend -- "\r"\nexpect "*passphrase*"\nsend -- "\r"\ninteract\nEOH
   EOF
 end
 

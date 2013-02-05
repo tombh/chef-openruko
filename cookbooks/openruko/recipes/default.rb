@@ -1,3 +1,4 @@
+package "expect"
 package "curl"
 package "wget"
 package "socat"
